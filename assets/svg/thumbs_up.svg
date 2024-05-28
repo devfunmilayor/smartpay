@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Thumb -->
+  <path d="M40 50 Q35 40 45 30 Q50 25 55 30 Q60 35 60 40 Q55 45 50 50 Z" fill="#F5C1A6" stroke="#E29B72" stroke-width="2"/>
+  <path d="M40 60 Q35 70 45 80 Q50 85 55 80 Q60 75 60 70 Q55 65 50 60 Z" fill="#F5C1A6" stroke="#E29B72" stroke-width="2"/>
+
+  <!-- Stars -->
+  <polygon points="30,10 32,18 40,18 34,22 36,30 30,26 24,30 26,22 20,18 28,18" fill="#FEC524"/>
+  <polygon points="70,10 72,18 80,18 74,22 76,30 70,26 64,30 66,22 60,18 68,18" fill="#FEC524"/>
+  <polygon points="50,40 52,48 60,48 54,52 56,60 50,56 44,60 46,52 40,48 48,48" fill="#FEC524"/>
+</svg>
