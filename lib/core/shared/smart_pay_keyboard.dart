@@ -1,8 +1,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import 'package:smart_pay/core/resources/app_colors.dart';
 import 'package:smart_pay/core/resources/app_text_styles.dart';
+
+Widget buildPinPutk(
+    {VerificationAndPinController? verificationCtrl,
+    Function(String)? onChanged,
+    int? l,
+    final String? Function(String?)? otpValidator,
+    errorText,
+    final String? Function(String?)? oncomplete}) {
+  final defaultPinTheme = PinTheme(
+      width: 65,
+      height: 50,
+      textStyle: getBoldStyle(color: ColorManager.black, fontSize: 12),
+      decoration: BoxDecoration());
+  final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border(bottom: BorderSide(width: 1, color: ColorManager.black)),
+      color: ColorManager.lightGrey.withOpacity(0.05));
+
+  final preFilledWidget =
+      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+    Container(
+        width: 50,
+        height: 1,
+        decoration: BoxDecoration(
+            color: Colors.black, borderRadius: BorderRadius.circular(2)))
+  ]);
+
+  return Pinput(
+    pinAnimationType: PinAnimationType.slide,
+    length: l ?? 4,
+    controller: verificationCtrl?.pinController,
+    defaultPinTheme: defaultPinTheme,
+    enableIMEPersonalizedLearning: true,
+    toolbarEnabled: true,
+    listenForMultipleSmsOnAndroid: true,
+    focusedPinTheme: focusedPinTheme,
+    preFilledWidget: preFilledWidget,
+    androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
+    pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+    showCursor: true,
+    useNativeKeyboard: false,
+    validator: otpValidator,
+    onChanged: onChanged,
+    errorText: errorText,
+    errorTextStyle: getRegularStyle(color: Colors.red, fontSize: 15.sp),
+    onCompleted: oncomplete,
+  );
+}
 
 class VerificationAndPinController {
   TextEditingController pinController = TextEditingController();

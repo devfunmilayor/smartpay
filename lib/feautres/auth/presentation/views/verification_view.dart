@@ -55,18 +55,17 @@ class _VerificationViewState extends ConsumerState<VerificationView> {
                       'We send a code to (*****@gmail.com). Enter it here to verify your identity.'),
               20.0.h,
               buildOTPPinPut(
-                verificationCtrl: verificationCtrl,
-                oncomplete: (p0) {
-                  ref
+                  verificationCtrl: verificationCtrl,
+                  oncomplete: (p0) {
+                    ref
+                        .read(authBloc.notifier)
+                        .mapEventsToState(VerifyOtpEvent());
+                    return null;
+                  },
+                  length: 5,
+                  onChanged: (p0) => ref
                       .read(authBloc.notifier)
-                      .mapEventsToState(VerifyOtpEvent());
-                  return null;
-                },
-                length: 5,
-                onChanged: (p0) => ref
-                    .read(authBloc.notifier)
-                    .mapEventsToState(OtpValidationEvent(valOtp: p0)),
-              ),
+                      .mapEventsToState(OtpValidationEvent(valOtp: p0))),
               20.0.h,
               Center(
                 child: Text('Resend code in 30 secs',

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_pay/core/resources/app_colors.dart';
@@ -9,7 +7,6 @@ import 'package:smart_pay/core/shared/smart_pay_button.dart';
 import 'package:smart_pay/core/shared/smart_pay_keyboard.dart';
 import 'package:smart_pay/core/util/num.dart';
 import 'package:smart_pay/feautres/auth/presentation/widgets/login_widget.dart';
-import 'package:smart_pay/feautres/auth/presentation/widgets/set_pin_widget.dart';
 import 'package:smart_pay/feautres/intro/views/confirmation_view.dart';
 
 class SetPinCodeView extends StatefulWidget {
@@ -43,14 +40,8 @@ class _SetPinCodeViewState extends State<SetPinCodeView>
 
   String get currentValue => pin;
 
-  late final AnimationController pinAnimationController = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 500),
-  );
-
   VerificationAndPinController verificationCtrl =
       VerificationAndPinController();
-
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -72,70 +63,18 @@ class _SetPinCodeViewState extends State<SetPinCodeView>
                           label: 'Set your pin code',
                           text1:
                               'We use state-of-the-art security measures to protect your information at all times'),
-                      20.0.h,
-                      AnimatedBuilder(
-                        animation: pinAnimationController,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            SmartPinBox(
-                                value: currentValue.isNotEmpty ? '●' : ''),
-                            10.0.w,
-                            SmartPinBox(
-                                value: currentValue.isNotEmpty &&
-                                        currentValue.length > 1
-                                    ? '●'
-                                    : ''),
-                            10.0.w,
-                            SmartPinBox(
-                                value: currentValue.isNotEmpty &&
-                                        currentValue.length > 2
-                                    ? '●'
-                                    : ''),
-                            10.0.w,
-                            SmartPinBox(
-                                value: currentValue.isNotEmpty &&
-                                        currentValue.length > 3
-                                    ? '●'
-                                    : ''),
-                            10.0.w,
-                            SmartPinBox(
-                                value: currentValue.isNotEmpty &&
-                                        currentValue.length > 4
-                                    ? '●'
-                                    : ''),
-                          ],
-                        ),
-                        builder: (BuildContext context, Widget? child) {
-                          final double sineValue = sin(
-                            2 * 2 * pi * pinAnimationController.value,
-                          );
-                          return Transform.translate(
-                            offset: Offset(sineValue * 20, 0),
-                            child: child,
-                          );
-                        },
-                      ),
+                      buildPinPutk(l: 6, verificationCtrl: verificationCtrl),
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SmartPayButton(
-                    disable: currentValue.length < 5,
-                    onTap: () async {
-                      if (currentValue.length < 5) {
-                        pinAnimationController.forward();
-                        return;
-                      }
-
-                      // validate();
-
-                      RouteConfigKQ.toReplacement(page: ConfirmationView());
-                    },
-                    text: 'Continue',
-                    color: ColorManager.darkPrimary,
-                  ),
+                      disable: currentValue.length < 5,
+                      onTap: () async =>
+                          RouteConfigKQ.toReplacement(page: ConfirmationView()),
+                      text: 'Continue',
+                      color: ColorManager.darkPrimary),
                 ),
                 20.0.h,
                 Padding(
