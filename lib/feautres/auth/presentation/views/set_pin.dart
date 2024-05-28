@@ -63,7 +63,7 @@ class _SetPinCodeViewState extends State<SetPinCodeView>
                           label: 'Set your pin code',
                           text1:
                               'We use state-of-the-art security measures to protect your information at all times'),
-                      buildPinPutk(l: 6, verificationCtrl: verificationCtrl),
+                      buildPinPutk(l: 5, verificationCtrl: verificationCtrl),
                     ],
                   ),
                 ),
